@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NPTA • Name Place Thing Animal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="top-bar">
+    <div class="logo">
+      <span class="logo-mark">N</span>
+      <span class="logo-text">NPTA<span class="logo-sub">Game</span></span>
+    </div>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Language badlein">
+      <span data-lang="ur">اردو</span>
+      <span class="sep">/</span>
+      <span data-lang="roman">Roman Urdu</span>
+      <span class="sep">/</span>
+      <span data-lang="en">English</span>
+    </button>
+  </header>
+
+  <main class="app">
+  <section id="screen-landing" class="screen hero active">
+    <section class="letter-stage" aria-hidden="true">
+      <div class="letter-tile" id="letterTile">
+        <span id="letterChar">A</span>
+      </div>
+      <p class="letter-caption">Har round ek nayi letter.</p>
+    </section>
+
+    <section class="hero-copy">
+      <h1 class="headline">
+        Name <span class="dot dot-place">•</span> Place <span class="dot dot-animal">•</span> Animal <span class="dot dot-thing">•</span> Thing
+      </h1>
+      <p class="subhead">
+        Apne doston ke saath private room banao, ek letter aaye, aur sabse tez, sahi, aur rare jawab jeetein.
+      </p>
+
+      <div class="category-rail">
+        <span class="chip chip-name">🧑 Name</span>
+        <span class="chip chip-place">📍 Place</span>
+        <span class="chip chip-animal">🐾 Animal</span>
+        <span class="chip chip-thing">📦 Thing</span>
+      </div>
+    </section>
+
+    <section class="room-cards">
+      <div class="card card-create">
+        <div class="card-head">
+          <span class="card-icon">➕</span>
+          <h2>Room Banao</h2>
+        </div>
+        <p class="card-desc">Naya private room start karo aur doston ko code bhejo.</p>
+
+        <label class="field">
+          <span>Tumhara naam</span>
+          <input type="text" id="createName" placeholder="e.g. Ayesha" maxlength="18" />
+        </label>
+
+        <label class="field">
+          <span>Avatar chuno</span>
+          <div class="avatar-picker" id="avatarPickerCreate">
+            <button type="button" class="avatar-opt selected" data-avatar="🦊">🦊</button>
+            <button type="button" class="avatar-opt" data-avatar="🐼">🐼</button>
+            <button type="button" class="avatar-opt" data-avatar="🐸">🐸</button>
+            <button type="button" class="avatar-opt" data-avatar="🦁">🦁</button>
+            <button type="button" class="avatar-opt" data-avatar="🐧">🐧</button>
+            <button type="button" class="avatar-opt" data-avatar="🐵">🐵</button>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>Timer</span>
+          <div class="timer-picker" id="timerPickerCreate">
+            <button type="button" class="timer-opt" data-timer="30">30s</button>
+            <button type="button" class="timer-opt selected" data-timer="60">60s</button>
+            <button type="button" class="timer-opt" data-timer="90">90s</button>
+          </div>
+        </label>
+
+        <button class="btn btn-create" id="createRoomBtn" type="button">Room Banao</button>
+      </div>
+
+      <div class="divider">
+        <span>ya</span>
+      </div>
+
+      <div class="card card-join">
+        <div class="card-head">
+          <span class="card-icon">🔑</span>
+          <h2>Room Join Karo</h2>
+        </div>
+        <p class="card-desc">Room code daalo aur dost ke saath khelo.</p>
+
+        <label class="field">
+          <span>Tumhara naam</span>
+          <input type="text" id="joinName" placeholder="e.g. Bilal" maxlength="18" />
+        </label>
+
+        <label class="field">
+          <span>Room code</span>
+          <input type="text" id="joinCode" class="code-input" placeholder="XXXXXX" maxlength="6" autocapitalize="characters" />
+        </label>
+
+        <button class="btn btn-join" id="joinRoomBtn" type="button">Room Join Karo</button>
+      </div>
+    </section>
+
+    <section class="feature-strip">
+      <div class="feature">⚡ Speed bonus</div>
+      <div class="feature">✅ Auto checking</div>
+      <div class="feature">🏆 Leaderboard</div>
+      <div class="feature">😄 Emoji reactions</div>
+      <div class="feature">🎲 Wildcard rounds</div>
+    </section>
+  </section>
+
+  <!-- ===== WAITING ROOM ===== -->
+  <section id="screen-waiting" class="screen waiting">
+    <div class="room-code-banner">
+      <span class="rc-label">Room Code</span>
+      <span class="rc-code" id="waitingRoomCode">------</span>
+      <button type="button" class="btn-copy" id="copyCodeBtn">Copy</button>
+    </div>
+
+    <h2 class="screen-title">Players ikattha ho rahe hain…</h2>
+    <p class="screen-sub" id="waitingSub">Jab sab ready hon, "Game Start" dabao.</p>
+
+    <ul class="player-list" id="playerList">
+      <!-- players injected by script.js, live-updated via socket -->
+    </ul>
+
+    <div class="waiting-actions">
+      <label class="field field-inline">
+        <span>Timer</span>
+        <div class="timer-picker" id="timerPickerWaiting">
+          <button type="button" class="timer-opt" data-timer="30">30s</button>
+          <button type="button" class="timer-opt selected" data-timer="60">60s</button>
+          <button type="button" class="timer-opt" data-timer="90">90s</button>
+        </div>
+      </label>
+      <button class="btn btn-start" id="startGameBtn" type="button">Game Start Karo ▶</button>
+      <p class="screen-note" id="hostOnlyNote" style="display:none;">Sirf host game start kar sakta hai — wait karo.</p>
+    </div>
+  </section>
+
+  <!-- ===== ROUND SCREEN ===== -->
+  <section id="screen-round" class="screen round">
+    <div class="round-top">
+      <div class="round-letter-wrap">
+        <span class="round-letter-label">Letter</span>
+        <div class="round-letter" id="roundLetter">A</div>
+        <span class="round-number" id="roundNumberBadge">Round 1</span>
+      </div>
+      <div class="round-timer-wrap">
+        <svg class="timer-ring" viewBox="0 0 100 100">
+          <circle class="timer-ring-bg" cx="50" cy="50" r="44"></circle>
+          <circle class="timer-ring-fg" id="timerRingFg" cx="50" cy="50" r="44"></circle>
+        </svg>
+        <span class="timer-seconds" id="timerSeconds">60</span>
+      </div>
+    </div>
+
+    <form class="answer-grid" id="answerForm">
+      <label class="answer-field af-name">
+        <span class="af-label">🧑 Name</span>
+        <input type="text" id="ansName" autocomplete="off" placeholder="Letter se shuru hone wala naam" />
+      </label>
+      <label class="answer-field af-place">
+        <span class="af-label">📍 Place</span>
+        <input type="text" id="ansPlace" autocomplete="off" placeholder="Sheher, mulk, jagah…" />
+      </label>
+      <label class="answer-field af-animal">
+        <span class="af-label">🐾 Animal</span>
+        <input type="text" id="ansAnimal" autocomplete="off" placeholder="Koi bhi janwar…" />
+      </label>
+      <label class="answer-field af-thing">
+        <span class="af-label">📦 Thing</span>
+        <input type="text" id="ansThing" autocomplete="off" placeholder="Koi bhi cheez…" />
+      </label>
+    </form>
+
+    <div class="round-buttons">
+      <button class="btn btn-submit" id="submitAnswersBtn" type="button">Submit Karo ✅</button>
+      <button class="btn btn-stop" id="stopRoundBtn" type="button">STOP ⏹ (sabke liye round khatam)</button>
+    </div>
+    <p class="screen-note" id="waitingOthersNote" style="display:none;">Answers submit ho gaye — doosre players ka intezaar ho raha hai…</p>
+  </section>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <section id="screen-results" class="screen results">
+    <h2 class="screen-title">Round <span id="resultsRoundNumber">1</span> Khatam! 🎉</h2>
+    <p class="screen-sub">Sab players ke jawab:</p>
+
+    <div class="results-players" id="resultsPlayers">
+      <!-- filled by script.js: one card per player -->
+    </div>
+
+    <div class="leaderboard" id="leaderboardWrap">
+      <h3 class="leaderboard-title">🏆 Overall Leaderboard</h3>
+      <ul class="leaderboard-list" id="leaderboardList">
+        <!-- filled by script.js: cumulative scores across all rounds -->
+      </ul>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-again" id="playAgainBtn" type="button">Naya Round ▶</button>
+      <button class="btn btn-home" id="backHomeBtn" type="button">Home pe wapas</button>
+    </div>
+
+    <p class="screen-note">✅ Unique = 10 pts · 🔁 Duplicate = 5 pts · ❌ Galat/khaali = 0 pts</p>
+  </section>
+  </main>
+
+  <footer class="foot">
+    <p>Free • No Play Store • No ads</p>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
